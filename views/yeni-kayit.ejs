@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Yeni Kayıt | Kilis Vakfı</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root { --vakif-yesil: #2d5a27; }
+        body { background-color: #f8f9fa; }
+        .navbar { background-color: var(--vakif-yesil) !important; border-bottom: 5px solid #fbc02d; }
+        .logo-img { height: 60px; background: white; border-radius: 50%; padding: 3px; }
+        .card { border-radius: 15px; border: none; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark shadow mb-4">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                <img src="/img/logo.png" alt="Logo" class="logo-img">
+                <span class="fw-bold">YENİ ÖĞRENCİ KAYDI</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg p-4">
+                    <form action="/yeni-kayit" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Öğrenci Ad Soyad</label>
+                            <input type="text" name="isim" class="form-control" placeholder="Örn: Mehmet Kerem Hakan" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Oda Numarası</label>
+                            <select name="odaNo" class="form-select" required>
+                                <option value="" disabled selected>Oda Seçiniz...</option>
+                                <optgroup label="Bodrum & Giriş">
+                                    <option value="Z-3">Z-3 (3 Kişilik)</option>
+                                    <option value="G-1">G-1 (5 Kişilik)</option>
+                                </optgroup>
+                                <optgroup label="Normal Katlar">
+                                    <% ["1", "2", "3"].forEach(kat => { %>
+                                        <% ["01", "02", "03", "04", "05", "06", "07"].forEach(no => { %>
+                                            <option value="<%= kat + no %>"><%= kat + no %></option>
+                                        <% }) %>
+                                    <% }) %>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Öğrenci Telefon Numarası</label>
+                            <input type="text" name="tel" class="form-control" placeholder="05xx..." required>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success fw-bold">Kaydı Tamamla</button>
+                            <a href="/" class="btn btn-outline-secondary">İptal ve Geri Dön</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
