@@ -19,34 +19,30 @@
                     <select class="form-select mb-4 bg-light" onchange="location = '/duzenle/' + this.value;">
                         <option value="" disabled <%= !seciliOgrenci ? 'selected' : '' %>>-- Kayıtlı Öğrenciler --</option>
                         <% ogrenciler.forEach(o => { %>
-                            <option value="<%= o.id %>" <%= seciliOgrenci && seciliOgrenci.id == o.id ? 'selected' : '' %>><%= o.isim %> (Oda: <%= o.odaNo %>)</option>
+                            <option value="<%= o.id %>" <%= seciliOgrenci && seciliOgrenci.id == o.id ? 'selected' : '' %>><%= o.isim %></option>
                         <% }) %>
                     </select>
 
                     <% if (seciliOgrenci) { %>
                         <hr>
-                        <h5 class="mb-3">Seçili Kişi: <span class="text-primary"><%= seciliOgrenci.isim %></span></h5>
+                        <h5 class="mb-3 text-center">Düzenlenen: <span class="text-primary"><%= seciliOgrenci.isim %></span></h5>
                         <form action="/duzenle/<%= seciliOgrenci.id %>" method="POST">
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Tam Ad Soyad</label>
-                                <input type="text" name="isim" class="form-control" value="<%= ogrenci.isim %>" required pattern="[A-Za-zÇçĞğİıÖöŞşÜü\s]+" title="Lütfen sadece harf giriniz."> 
+                                <input type="text" name="isim" class="form-control" value="<%= seciliOgrenci.isim %>" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold">Yeni Oda Seçin</label>
+                                <label class="form-label fw-bold">Oda Seçin</label>
                                 <select name="odaNo" class="form-select" required>
-                                    <option value="<%= seciliOgrenci.odaNo %>">Mevcut: <%= seciliOgrenci.odaNo %></option>
+                                    <option value="<%= seciliOgrenci.odaNo %>" selected>Mevcut: <%= seciliOgrenci.odaNo %></option>
                                     <option value="Z-3">Z-3 (Bodrum)</option>
                                     <option value="G-1">G-1 (Giriş)</option>
-                                    <% ["1", "2", "3"].forEach(kat => { %>
-                                        <% ["01", "02", "03", "04", "05", "06", "07"].forEach(no => { %>
-                                            <option value="<%= kat + no %>"><%= kat + no %></option>
-                                        <% }) %>
-                                    <% }) %>
+                                    <% for(let i=101; i<=107; i++) { %><option value="<%= i %>"><%= i %></option><% } %>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold">Öğrenci Telefon Numarası</label>
-                                <input type="tel" name="telefon" class="form-control" value="<%= ogrenci.telefon %>" required pattern="[0-9]{10,11}" title="Lütfen 10-11 haneli geçerli bir numara giriniz.">
+                                <label class="form-label fw-bold">Telefon Numarası</label>
+                                <input type="tel" name="telefon" class="form-control" value="<%= seciliOgrenci.tel %>" required>
                             </div>
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-warning fw-bold">Değişiklikleri Kaydet</button>
