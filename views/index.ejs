@@ -91,7 +91,7 @@
                         <td class="align-middle"><%= o.isim %></td>
                         <td class="align-middle"><%= o.odaNo %></td>
                         <td class="align-middle"><%= o.tel %></td> <td class="text-center">
-                            <a href="/duzenle/<%= o.id %>" class="btn btn-sm btn-warning fw-bold me-2">Düzenle</a>
+                            <a href="/duzenle">Düzenle</a> veya <a href="/duzenle/<%= ogrenci.id %>">Düzenle</a>
                             <a href="/sil/<%= o.id %>" class="btn btn-sm btn-danger fw-bold" 
                                onclick="return confirm('Bu kaydı silmek istediğinize emin misiniz?')">Sil</a>
                         </td>
@@ -124,4 +124,5 @@
         }
     </script>
 </body>
+
 </html>
