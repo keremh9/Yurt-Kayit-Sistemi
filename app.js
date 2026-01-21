@@ -5,22 +5,20 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
-// Başlangıç verisi
+// Başlangıç verisi ve senin numaran
 let ogrenciler = [{ id: "1", isim: "Mehmet Kerem Hakan", odaNo: "105", tel: "23040301045" }];
 
 // ANASAYFA
-app.get('/', (req, res) => {
-    res.render('index', { ogrenciler });
-});
+app.get('/', (req, res) => res.render('index', { ogrenciler }));
 
-// DÜZENLEME PANELİ (Hataları Çözen Tekil Rota)
+// DÜZENLEME PANELİ (Internal Server Error ve Cannot GET Çözümü)
 app.get('/duzenle/:id?', (req, res) => {
     const id = req.params.id;
-    // Eğer ID varsa onu bul, yoksa listedeki ilk öğrenciyi getir
-    const veri = id ? ogrenciler.find(o => o.id === id) : ogrenciler[0];
+    // Linkte ID varsa onu bul, yoksa listedeki ilk öğrenciyi seç
+    const secili = id ? ogrenciler.find(o => o.id === id) : ogrenciler[0];
     
-    // Değişken ismini 'ogrenci' olarak sabitledik ki EJS hata vermesin
-    res.render('duzenle', { ogrenciler: ogrenciler, ogrenci: veri });
+    // Değişken ismini 'ogrenci' yaparak EJS ile eşitliyoruz
+    res.render('duzenle', { ogrenciler: ogrenciler, ogrenci: secili });
 });
 
 // GÜNCELLEME İŞLEMİ (POST)
@@ -37,4 +35,4 @@ app.post('/duzenle/:id', (req, res) => {
 app.get('/hakkimizda', (req, res) => res.render('hakkimizda'));
 app.get('/iletisim', (req, res) => res.render('iletisim'));
 
-app.listen(3005, () => console.log("Sistem hazır: http://localhost:3005"));
+app.listen(3005, () => console.log("http://localhost:3005"));
