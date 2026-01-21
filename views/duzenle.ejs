@@ -30,26 +30,26 @@
                     <h5 class="text-success fw-bold mb-3">Bilgileri Güncelle</h5>
                     <% if (ogrenci) { %>
                         <form action="/duzenle/<%= ogrenci.id %>" method="POST">
-                            <div class="mb-3">
+                            <div class="mb-3 text-start">
                                 <label class="form-label small fw-bold">Ad Soyad</label>
                                 <input type="text" name="isim" class="form-control" value="<%= ogrenci.isim %>" required>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 text-start">
                                 <label class="form-label small fw-bold">Oda No</label>
                                 <input type="text" name="odaNo" class="form-control" value="<%= ogrenci.odaNo %>" required>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 text-start">
                                 <label class="form-label small fw-bold">Telefon</label>
                                 <input type="tel" name="tel" class="form-control" value="<%= ogrenci.tel %>" required>
                             </div>
-                            <button type="submit" class="btn btn-success w-100" style="background-color: var(--vakif-yesil);">GÜNCELLE</button>
+                            <button type="submit" class="btn btn-success w-100 fw-bold" style="background-color: var(--vakif-yesil);">GÜNCELLE</button>
                         </form>
                     <% } %>
                 </div>
             </div>
 
             <div class="mt-5 pt-3 border-top">
-                <a href="/" class="btn btn-outline-secondary btn-sm">Geri Dön</a>
+                <a href="/" class="btn btn-outline-secondary btn-sm px-4">Geri Dön</a>
                 <p class="small text-muted mt-2">Sistem Yöneticisi: Mehmet Kerem Hakan - 23040301045</p>
             </div>
         </div>
