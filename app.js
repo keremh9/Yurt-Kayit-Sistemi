@@ -34,11 +34,8 @@ app.get('/duzenle/:id', (req, res) => {
     const id = req.params.id;
     const ogrenci = ogrenciler.find(o => o.id === id); 
 
-    if (ogrenci) {
-        res.render('duzenle', { seciliOgrenci: ogrenci });
-    } else {
-        res.status(404).send('Öğrenci bulunamadı');
-    }
+    // Hem tüm listeyi (ogrenciler) hem de o an tıklanan öğrenciyi (ogrenci) gönderiyoruz
+    res.render('duzenle', { ogrenciler: ogrenciler, seciliOgrenci: ogrenci });
 });
 
 // GÜNCELLEME İŞLEMİ (POST)
@@ -66,3 +63,4 @@ app.get('/sil/:id', (req, res) => {
 
 const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
+
