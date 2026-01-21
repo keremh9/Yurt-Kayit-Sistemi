@@ -2,6 +2,7 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
+    <title>Düzenle | Kilis Vakfı</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style> :root { --vakif-yesil: #2d5a27; } .navbar { background-color: var(--vakif-yesil) !important; } </style>
 </head>
@@ -12,30 +13,33 @@
     <div class="container">
         <div class="card p-5 shadow-sm text-center" style="border-radius: 15px;">
             <img src="/img/logo.png" class="mx-auto mb-4" style="height: 100px;">
+            
             <div class="row text-start">
                 <div class="col-md-4 border-end">
                     <h5 class="text-success fw-bold mb-3">Öğrenci Seç</h5>
-                    <div class="list-group">
+                    <div class="list-group shadow-sm">
                         <% ogrenciler.forEach(o => { %>
-                            <a href="/duzenle/<%= o.id %>" class="list-group-item list-group-item-action <%= ogrenci && ogrenci.id === o.id ? 'active' : '' %>">
+                            <a href="/duzenle/<%= o.id %>" class="list-group-item list-group-item-action <%= ogrenci && ogrenci.id === o.id ? 'active' : '' %>" style="<%= ogrenci && ogrenci.id === o.id ? 'background-color: var(--vakif-yesil); border:none;' : '' %>">
                                 <%= o.isim %>
                             </a>
                         <% }) %>
                     </div>
                 </div>
+
                 <div class="col-md-8 ps-4">
+                    <h5 class="text-success fw-bold mb-3">Bilgileri Güncelle</h5>
                     <% if (ogrenci) { %>
                         <form action="/duzenle/<%= ogrenci.id %>" method="POST">
                             <div class="mb-3">
-                                <label class="form-label fw-bold">Ad Soyad</label>
+                                <label class="form-label small fw-bold">Ad Soyad</label>
                                 <input type="text" name="isim" class="form-control" value="<%= ogrenci.isim %>" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold">Oda No</label>
+                                <label class="form-label small fw-bold">Oda No</label>
                                 <input type="text" name="odaNo" class="form-control" value="<%= ogrenci.odaNo %>" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold">Telefon</label>
+                                <label class="form-label small fw-bold">Telefon</label>
                                 <input type="tel" name="tel" class="form-control" value="<%= ogrenci.tel %>" required>
                             </div>
                             <button type="submit" class="btn btn-success w-100" style="background-color: var(--vakif-yesil);">GÜNCELLE</button>
@@ -43,7 +47,11 @@
                     <% } %>
                 </div>
             </div>
-            <p class="mt-4 small text-muted">Mehmet Kerem Hakan - 23040301045</p>
+
+            <div class="mt-5 pt-3 border-top">
+                <a href="/" class="btn btn-outline-secondary btn-sm">Geri Dön</a>
+                <p class="small text-muted mt-2">Sistem Yöneticisi: Mehmet Kerem Hakan - 23040301045</p>
+            </div>
         </div>
     </div>
 </body>
