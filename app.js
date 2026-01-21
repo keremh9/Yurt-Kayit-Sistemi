@@ -5,6 +5,9 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
+// Başlangıç verisi
+let ogrenciler = [{ id: "1", isim: "Mehmet Kerem Hakan", odaNo: "105", tel: "23040301045" }];
+
 const odaKapasitesi = (odaNo) => {
     if (!odaNo) return 0;
     if (odaNo === "G-1") return 5;
@@ -13,9 +16,6 @@ const odaKapasitesi = (odaNo) => {
     const tablo = { '1': 2, '2': 5, '3': 4, '4': 2, '5': 1, '6': 2, '7': 2 };
     return tablo[sonRakam] || 0;
 };
-
-// Başlangıç verisi olarak senin bilgilerin
-let ogrenciler = [{ id: "1", isim: "Mehmet Kerem Hakan", odaNo: "105", tel: "23040301045" }];
 
 // 1. ANASAYFA
 app.get('/', (req, res) => res.render('index', { ogrenciler, odaKapasitesi }));
@@ -29,23 +29,23 @@ app.post('/yeni-kayit', (req, res) => {
     res.redirect('/');
 });
 
-// 3. DÜZENLEME PANELİ (Hata düzelten ve tekil hale getirilmiş rota)
+// 3. DÜZENLEME PANELİ 
 app.get('/duzenle/:id', (req, res) => {
     const id = req.params.id;
-    const ogrenci = ogrenciler.find(o => o.id === id); // db.find yerine ogrenciler.find yaptık
+    const ogrenci = ogrenciler.find(o => o.id === id); 
 
     if (ogrenci) {
-        // Sayfaya hem listeyi hem de seçili öğrenciyi gönderiyoruz
-        res.render('duzenle', { ogrenciler: ogrenciler, seciliOgrenci: ogrenci });
+        res.render('duzenle', { seciliOgrenci: ogrenci });
     } else {
         res.status(404).send('Öğrenci bulunamadı');
     }
 });
 
-// GÜNCELLEME İŞLEMİ
+// GÜNCELLEME İŞLEMİ (POST)
 app.post('/duzenle/:id', (req, res) => {
+    const id = req.params.id;
     const { isim, odaNo, tel } = req.body;
-    const index = ogrenciler.findIndex(o => o.id === req.params.id);
+    const index = ogrenciler.findIndex(o => o.id === id);
     if (index !== -1) {
         ogrenciler[index] = { ...ogrenciler[index], isim, odaNo, tel };
     }
@@ -58,12 +58,11 @@ app.get('/hakkimizda', (req, res) => res.render('hakkimizda'));
 // 5. İLETİŞİM
 app.get('/iletisim', (req, res) => res.render('iletisim'));
 
-// SİLME
+// 6. SİLME
 app.get('/sil/:id', (req, res) => {
     ogrenciler = ogrenciler.filter(o => o.id !== req.params.id);
     res.redirect('/');
 });
 
 const PORT = process.env.PORT || 3005;
-
-app.listen(PORT, () => console.log(`Sunucu hazır: http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
