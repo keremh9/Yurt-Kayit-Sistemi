@@ -30,18 +30,20 @@
                     <h5 class="text-success fw-bold mb-3">Bilgileri Güncelle</h5>
                     <% if (ogrenci) { %>
                         <form action="/duzenle/<%= ogrenci.id %>" method="POST">
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">Ad Soyad</label>
-                                <input type="text" name="isim" class="form-control" value="<%= ogrenci.isim %>" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">Oda No</label>
-                                <input type="text" name="odaNo" class="form-control" value="<%= ogrenci.odaNo %>" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">Telefon</label>
-                                <input type="tel" name="tel" class="form-control" value="<%= ogrenci.tel %>" required>
-                            </div>
+    <div class="mb-3">
+        <label class="form-label fw-bold">Ad Soyad</label>
+        <input type="text" name="isim" class="form-control" value="<%= ogrenci.isim %>" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label fw-bold">Oda No</label>
+        <input type="text" name="odaNo" class="form-control" value="<%= ogrenci.odaNo %>" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label fw-bold">Telefon</label>
+        <input type="tel" name="tel" class="form-control" value="<%= ogrenci.tel %>" required>
+    </div>
+    <button type="submit" class="btn btn-success w-100" style="background-color: #2d5a27;">Güncelle</button>
+</form>
                             <button type="submit" class="btn btn-success w-100" style="background-color: var(--vakif-yesil);">Güncelle</button>
                         </form>
                     <% } else { %>
@@ -58,3 +60,4 @@
     </div>
 </body>
 </html>
+
