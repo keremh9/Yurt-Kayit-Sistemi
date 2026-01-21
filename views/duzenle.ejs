@@ -8,14 +8,19 @@
 </head>
 <body class="bg-light">
     <nav class="navbar navbar-dark shadow mb-4">
-        <div class="container"><a class="navbar-brand fw-bold" href="/">ÖĞRENCİ BİLGİ GÜNCELLEME</a></div>
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                <img src="/img/logo.png" alt="Logo" class="logo-img">
+                <span class="fw-bold">ÖĞRENCİ BİLGİ DÜZENLE</span>
+            </a>
+        </div>
     </nav>
 
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-7">
                 <div class="card shadow-lg p-4">
-                    <label class="form-label fw-bold text-success">1. Güncellenecek Öğrenciyi Seçin</label>
+                    <label class="form-label fw-bold text-success">1. Düzenlenecek Öğrenciyi Seçin</label>
                     <select class="form-select mb-4 bg-light" onchange="location = '/duzenle/' + this.value;">
                         <option value="" disabled <%= !seciliOgrenci ? 'selected' : '' %>>-- Kayıtlı Öğrenciler --</option>
                         <% ogrenciler.forEach(o => { %>
@@ -58,3 +63,4 @@
     </div>
 </body>
 </html>
+
