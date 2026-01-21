@@ -32,11 +32,10 @@ app.post('/yeni-kayit', (req, res) => {
 // 3. DÜZENLEME PANELİ (Hata düzelten ve tekil hale getirilmiş rota)
 app.get('/duzenle/:id', (req, res) => {
     const id = req.params.id;
-    // ogrenciler dizisi içinde arama yapıyoruz
-    const ogrenci = ogrenciler.find(o => o.id === id); 
+    const ogrenci = ogrenciler.find(o => o.id === id); // db.find yerine ogrenciler.find yaptık
 
     if (ogrenci) {
-        // EJS tarafında beklenen değişken isimlerini gönderiyoruz
+        // Sayfaya hem listeyi hem de seçili öğrenciyi gönderiyoruz
         res.render('duzenle', { ogrenciler: ogrenciler, seciliOgrenci: ogrenci });
     } else {
         res.status(404).send('Öğrenci bulunamadı');
@@ -66,4 +65,5 @@ app.get('/sil/:id', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3005;
+
 app.listen(PORT, () => console.log(`Sunucu hazır: http://localhost:${PORT}`));
