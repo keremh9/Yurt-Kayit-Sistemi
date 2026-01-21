@@ -30,9 +30,12 @@ app.post('/yeni-kayit', (req, res) => {
     res.redirect('/');
 });
 
-// 3. DÜZENLEME PANELİ (Hataları çözen tekil rota)
+// 3. DÜZENLEME PANELİ
 app.get('/duzenle/:id?', (req, res) => {
     const id = req.params.id;
+    const veri = id ? ogrenciler.find(o => o.id === id) : ogrenciler[0];
+    res.render('duzenle', { ogrenciler: ogrenciler, ogrenci: veri });
+});
     // Eğer ID yoksa listedeki ilk öğrenciyi seç, liste boşsa null gönder
     const seciliOgrenci = id ? ogrenciler.find(o => o.id === id) : (ogrenciler.length > 0 ? ogrenciler[0] : null);
     
@@ -64,3 +67,4 @@ app.get('/sil/:id', (req, res) => {
 
 const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
+
