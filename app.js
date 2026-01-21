@@ -14,52 +14,37 @@ const odaKapasitesi = (odaNo) => {
     return tablo[sonRakam] || 0;
 };
 
-// Başlangıç verisi olarak senin bilgilerin
 let ogrenciler = [{ id: "1", isim: "Mehmet Kerem Hakan", odaNo: "105", tel: "23040301045" }];
 
-// 1. ANASAYFA
 app.get('/', (req, res) => res.render('index', { ogrenciler, odaKapasitesi }));
 
-// 2. YENİ KAYIT
 app.get('/yeni-kayit', (req, res) => res.render('yeni-kayit'));
 app.post('/yeni-kayit', (req, res) => {
-    const { isim, odaNo, tel } = req.body;
-    if (!odaNo) return res.send("<script>alert('Oda Seçiniz!'); window.history.back();</script>");
-    ogrenciler.push({ id: Date.now().toString(), isim, odaNo, tel });
+    const { isim, odaNo, telefon } = req.body; // EJS'deki 'telefon' ismiyle eşitledik
+    ogrenciler.push({ id: Date.now().toString(), isim, odaNo, tel: telefon });
     res.redirect('/');
 });
 
-// 3. DÜZENLEME PANELİ (Hata düzelten ve tekil hale getirilmiş rota)
-app.get('/duzenle/:id', (req, res) => {
+// DÜZENLEME PANELİ - Rota hatası giderildi
+app.get('/duzenle/:id?', (req, res) => {
     const id = req.params.id;
-    // ogrenciler dizisi içinde arama yapıyoruz
-    const ogrenci = ogrenciler.find(o => o.id === id); 
-
-    if (ogrenci) {
-        // EJS tarafında beklenen değişken isimlerini gönderiyoruz
-        res.render('duzenle', { ogrenciler: ogrenciler, seciliOgrenci: ogrenci });
-    } else {
-        res.status(404).send('Öğrenci bulunamadı');
-    }
+    const secili = id ? ogrenciler.find(o => o.id === id) : null;
+    // EJS tarafında 'seciliOgrenci' ve 'ogrenci' isimlerini karşılıyoruz
+    res.render('duzenle', { ogrenciler: ogrenciler, seciliOgrenci: secili, ogrenci: secili });
 });
 
-// GÜNCELLEME İŞLEMİ
 app.post('/duzenle/:id', (req, res) => {
-    const { isim, odaNo, tel } = req.body;
+    const { isim, odaNo, telefon } = req.body; // 'tel' yerine formdaki 'telefon'
     const index = ogrenciler.findIndex(o => o.id === req.params.id);
     if (index !== -1) {
-        ogrenciler[index] = { ...ogrenciler[index], isim, odaNo, tel };
+        ogrenciler[index] = { ...ogrenciler[index], isim, odaNo, tel: telefon };
     }
     res.redirect('/');
 });
 
-// 4. HAKKIMIZDA
 app.get('/hakkimizda', (req, res) => res.render('hakkimizda'));
-
-// 5. İLETİŞİM
 app.get('/iletisim', (req, res) => res.render('iletisim'));
 
-// SİLME
 app.get('/sil/:id', (req, res) => {
     ogrenciler = ogrenciler.filter(o => o.id !== req.params.id);
     res.redirect('/');
